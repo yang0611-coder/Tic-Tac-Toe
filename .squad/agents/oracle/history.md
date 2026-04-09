@@ -26,3 +26,11 @@
 **Charter & history created:** Oracle added to team roster with initial charter and history.
 **Orchestration log:** Created in `.squad/orchestration-log/2026-04-09T19-16-47Z-oracle.md` — Oracle is PENDING, ready to create diagrams on demand per Brady's dark background directive.
 **Note:** Oracle's role is to author Mermaid diagrams showing game architecture, AI decision trees, component hierarchies, and test landscapes with dark backgrounds and white fonts.
+
+### 2026-04-09: ARCHITECTURE.md created
+- Created `ARCHITECTURE.md` at repo root with three Mermaid diagrams (architecture, sequence, minimax flow)
+- All diagrams use the dark theme standard from charter
+- Sequence diagram required separate actor styling variables (`actorBkg`, `actorTextColor`, `actorBorder`, `signalColor`)
+- Architecture graph uses subgraphs to cluster Presentation, UI Controller, Game Engine, and Test Suite
+- Documented all 46 tests with group-level breakdown and counts
+- Key structural insight: `getComputerMove` is exposed separately from `makeComputerMove` specifically to give the UI animation flexibility (350ms delay)

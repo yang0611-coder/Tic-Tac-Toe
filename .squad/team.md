@@ -17,6 +17,7 @@
 | Morpheus | Game Dev | `.squad/agents/morpheus/charter.md` | 🔧 Active |
 | Tank | Tester | `.squad/agents/tank/charter.md` | 🧪 Active |
 | Oracle | Diagram Author | `.squad/agents/oracle/charter.md` | 📊 Active |
+| Mouse | CodeTour Author | `.squad/agents/mouse/charter.md` | 📝 Active |
 | Scribe | Scribe | `.squad/agents/scribe/charter.md` | 📋 Active |
 | Ralph | Work Monitor | `.squad/agents/ralph/charter.md` | 🔄 Active |
 

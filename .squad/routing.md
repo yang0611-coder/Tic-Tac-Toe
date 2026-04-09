@@ -13,6 +13,7 @@ How to decide who handles what.
 | Testing | Tank | Write tests, find edge cases, verify game logic |
 | Scope & priorities | Neo | What to build next, trade-offs, decisions |
 | Diagrams & visualization | Oracle | Architecture diagrams, flow charts, state diagrams, Mermaid |
+| CodeTour & education | Mouse | Interactive code tours, onboarding walkthroughs, learning paths |
 | Session logging | Scribe | Automatic — never needs routing |
 
 ## Issue Routing

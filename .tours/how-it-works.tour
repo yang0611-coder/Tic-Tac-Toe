@@ -1,0 +1,81 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "How It Works — Overview",
+  "description": "A guided tour of the entire Tic Tac Toe codebase: HTML structure, neo-brutalist CSS, pure game engine with minimax AI, and the UI controller that ties it all together.",
+  "steps": [
+    {
+      "title": "Welcome to TIC TAC TOE — BRUTAL EDITION",
+      "description": "## 🎮 What You'll Learn\n\nThis tour walks you through a **human vs. computer Tic Tac Toe** game built with vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies.\n\nHere's the architecture at a glance:\n\n- **`index.html`** — Semantic HTML with a 3×3 grid of `<button>` elements\n- **`style.css`** — Neo-brutalist design system (thick borders, hard shadows, bold colors)\n- **`game.js`** — Pure game engine with an **unbeatable minimax AI**\n- **`app.js`** — UI controller that connects the engine to the DOM\n- **`game.test.js`** — 46 tests including exhaustive proof the AI never loses\n\nThe key design principle: **game logic is completely separated from the UI**. The engine is pure functions with no DOM access — making it easy to test, reason about, and reuse.\n\nLet's dive in! 🏊"
+    },
+    {
+      "file": "index.html",
+      "line": 10,
+      "title": "HTML Structure — The Skeleton",
+      "description": "## 📄 Semantic HTML Layout\n\nThe entire app lives inside a single `<main class=\"container\">`. The structure is intentionally flat — just four `<section>` elements stacked vertically:\n\n1. **Header** (lines 11–14) — Title and subtitle\n2. **Status bar** (lines 16–18) — Live game status with `aria-live=\"polite\"` for screen readers\n3. **Board** (lines 20–32) — The 3×3 grid of `<button>` elements\n4. **Controls + Scoreboard** (lines 34–54) — Reset button and score tracking\n\nNotice the board cells are **`<button>` elements**, not `<div>`s — this gives us keyboard accessibility and focus management for free. Each button carries a `data-index` attribute (0–8) that maps directly to the flat array in the game engine.\n\nThe script loads at the bottom as `type=\"module\"` (line 57), enabling ES module imports."
+    },
+    {
+      "file": "style.css",
+      "line": 13,
+      "title": "CSS Custom Properties — The Design Tokens",
+      "description": "## 🎨 Neo-Brutalist Design System\n\nAll design decisions live in these CSS custom properties on `:root`. This is the single source of truth for the visual identity:\n\n- **`--color-bg: #FF2ECC`** — Hot pink hero background (cycles on each new game!)\n- **`--color-x: #1A1AFF`** / **`--color-o: #FF2D55`** — Bold, high-contrast mark colors\n- **`--color-win: #00FF88`** — Electric green for winning cells\n- **`--border-chunky: 6px solid`** — Thick, unapologetic borders (no border-radius anywhere!)\n- **`--shadow-hard: 8px 8px 0`** — Hard offset shadows with zero blur\n\nThis is textbook **neo-brutalism**: raw, bold, intentional. No gradients, no rounded corners, no subtle drop shadows. The design *wants* to be noticed.\n\nThe `--color-bg` property is the one that JavaScript manipulates at runtime to cycle background colors."
+    },
+    {
+      "file": "style.css",
+      "line": 113,
+      "title": "Board Grid — CSS Does the Heavy Lifting",
+      "description": "## 📐 The Board Layout\n\n```css\ndisplay: grid;\ngrid-template-columns: repeat(3, 1fr);\naspect-ratio: 1;\n```\n\nThree lines of CSS create the entire board layout:\n\n1. **`grid-template-columns: repeat(3, 1fr)`** — Three equal columns. Combined with 9 child elements, CSS Grid automatically creates 3 rows.\n2. **`aspect-ratio: 1`** — Keeps the board perfectly square at any viewport width.\n3. **`width: min(100%, 396px)`** — Responsive with a max size. The `min()` function caps the board at 396px on desktop but lets it shrink on mobile.\n4. **`gap: 0`** — No gap between cells; the cell borders create the grid lines instead.\n5. **`background: var(--color-border)`** — The board background peeks through the cell borders, creating a seamless grid line effect.\n\nThis approach is much simpler than older techniques like absolute positioning or table layouts."
+    },
+    {
+      "file": "game.js",
+      "line": 13,
+      "title": "Game State — The Single Source of Truth",
+      "description": "## 🧠 The Game State Shape\n\n`createGame()` returns the **immutable state object** that drives everything:\n\n```js\n{ board, currentPlayer, gameOver, winner }\n```\n\n- **`board`** — Flat array of 9 cells (`''`, `'X'`, or `'O'`). Indexed 0–8, left-to-right, top-to-bottom.\n- **`currentPlayer`** — Either `HUMAN ('X')` or `COMPUTER ('O')`\n- **`gameOver`** — Boolean flag\n- **`winner`** — `'X'`, `'O'`, `'draw'`, or `null`\n\n**Why a flat array instead of a 2D grid?** It's simpler to index (`data-index` maps directly), simpler to iterate, and the win-detection lookup table at line 7 uses flat indices.\n\n**Why immutable?** Every function returns a *new* state object rather than mutating the old one. This prevents bugs where the UI and engine disagree about the current state, and makes the game trivially testable."
+    },
+    {
+      "file": "game.js",
+      "line": 40,
+      "title": "Making Moves — Validate, Clone, Check",
+      "description": "## ♟️ How Moves Work\n\n`makeMove` follows a clean three-step pattern:\n\n1. **Validate** (line 41) — Reject invalid moves by returning `null` (not throwing!). This keeps the UI simple: just check `if (!nextState) return`.\n2. **Clone & apply** (lines 43–44) — Spread the board into a new array, then place the mark. The original state is never mutated.\n3. **Check result** (line 45) — Immediately check for a winner or draw.\n\nThe return value is a **brand new state object** with the player swapped. Notice the ternary on line 49 — after a human move, it becomes the computer's turn, and vice versa.\n\nThis function is the only way to place a mark on the board. Both human clicks and the AI go through this same validation pipeline, ensuring consistent rules."
+    },
+    {
+      "file": "game.js",
+      "line": 22,
+      "title": "Win Detection — Pattern Matching",
+      "description": "## 🏆 Checking for a Winner\n\n`checkWinner` checks the board against the `WIN_LINES` lookup table defined at line 7:\n\n```js\n[0,1,2], [3,4,5], [6,7,8],  // 3 rows\n[0,3,6], [1,4,7], [2,5,8],  // 3 columns\n[0,4,8], [2,4,6]             // 2 diagonals\n```\n\nThat's **8 possible winning lines**. For each line, it checks: are all three cells non-empty *and* identical?\n\nThe draw detection on line 28 is elegant:\n```js\nboard.every(cell => cell !== EMPTY) ? 'draw' : null\n```\nIf no winner was found and every cell is filled → it's a draw. Otherwise the game continues (`null`).\n\nThis function is called by both `makeMove` (to end the game) and `minimax` (to evaluate future board states). It's the shared foundation of both gameplay and AI."
+    },
+    {
+      "file": "game.js",
+      "line": 88,
+      "title": "The Minimax AI — Unbeatable by Design",
+      "description": "## 🤖 Minimax: How the AI Thinks\n\nMinimax is a recursive algorithm that plays out **every possible future** of the game and picks the optimal move. Here's the intuition:\n\n- The computer is the **maximizer** — it wants the highest score\n- The human is the **minimizer** — the AI assumes you'll make your best move too\n- Scores: **+1** (computer wins), **-1** (human wins), **0** (draw)\n\n**How it works:**\n1. **Base case** (lines 91–94): If the game is over, return the score\n2. **Maximize** (lines 96–103): Try every empty cell as the computer. Keep the highest-scoring result.\n3. **Minimize** (lines 105–113): Try every empty cell as the human. Keep the lowest-scoring result.\n\nThe recursion explores the *entire game tree* — every possible sequence of moves until someone wins or it's a draw. This makes the AI **mathematically unbeatable**: the best you can do is draw.\n\nNote the clever optimization: the board is mutated in-place during search (`board[i] = COMPUTER` → recurse → `board[i] = EMPTY`). This avoids creating thousands of array copies during the tree traversal."
+    },
+    {
+      "file": "app.js",
+      "line": 9,
+      "title": "UI Controller — DOM Bindings",
+      "description": "## 🔌 Connecting Engine to UI\n\n`app.js` is the **glue layer** between the pure game engine and the DOM. It starts by grabbing all the elements it needs:\n\n- **`cells`** (line 9) — All 9 board buttons via `.cell` selector\n- **`statusEl`** (line 10) — The status message element\n- **`resetBtn`** (line 11) — New game button\n- **`score*El`** (lines 12–14) — Scoreboard counters\n\nNotice the **import on line 1**: `app.js` imports functions from `game.js` but never reaches into the engine's internals. The engine doesn't know the DOM exists, and the UI doesn't know how minimax works. This separation means you could swap the UI (say, to Canvas or React) without touching the game logic."
+    },
+    {
+      "file": "app.js",
+      "line": 131,
+      "title": "The Click Handler — Human Move → AI Response",
+      "description": "## 🖱️ The Core Game Loop\n\n`handleCellClick` is where each turn plays out. Follow the flow:\n\n1. **Guard clauses** (lines 132–133) — Ignore clicks when input is locked or game is over\n2. **Parse index** (line 134) — Get the cell index from `data-index`\n3. **Human move** (lines 137–141) — Call `makeMove` from the engine, update state, re-render\n4. **Check result** (line 143) — If the human won or drew, stop here\n5. **Lock input** (lines 146–148) — Prevent clicks during the AI's \"thinking\" delay\n6. **AI responds** (lines 150–159) — After a 350ms delay, the computer makes its move\n\n**Why the `setTimeout` on line 150?** Without it, the computer's move would appear *instantly* — so fast it feels like both marks appear simultaneously. The 350ms delay creates the illusion that the \"machine is thinking\" and makes the UX feel more natural.\n\nThe `inputLocked` flag prevents the human from clicking during this window."
+    },
+    {
+      "file": "app.js",
+      "line": 16,
+      "title": "Background Color Cycling & Score Tracking",
+      "description": "## 🌈 Fun Details: Colors & Scores\n\n**Background cycling** (lines 16–30): The `BG_COLORS` array holds 12 vibrant colors. Every time you click \"NEW GAME\", `cycleBgColor()` advances to the next color and updates the `--color-bg` CSS custom property on `:root`. This is a pure CSS variable swap — no class toggling or style recalculation needed.\n\nSee line 176 where it's wired up:\n```js\nresetBtn.addEventListener('click', () => { cycleBgColor(); init(); });\n```\n\n**Score tracking** (lines 85–96): The `updateScore` function increments the counter and triggers a CSS **bump animation** using a classic trick:\n```js\nel.classList.remove('score-bump');\nvoid el.offsetWidth;  // Force reflow — restarts the animation\nel.classList.add('score-bump');\n```\n\nThe `void el.offsetWidth` line forces the browser to recalculate layout between removing and re-adding the class, ensuring the animation replays every time."
+    },
+    {
+      "file": "game.test.js",
+      "line": 1,
+      "title": "Test Suite — 46 Tests, Zero Dependencies",
+      "description": "## 🧪 Testing Strategy\n\nThe tests use **Node.js built-in test runner** (`node:test`) and **strict assertions** (`node:assert/strict`) — no Jest, no Mocha, no dependencies at all.\n\nKey test groups:\n- **`createGame`** (line 47) — Initial state shape\n- **`makeMove`** (line 68) — Valid moves, invalid moves, win/draw detection\n- **`checkWinner`** (line 132) — All 8 win lines, draws, ongoing games\n- **`isValidMove`** (line 201) — Boundary conditions and edge cases\n- **`getComputerMove`** (line 236) — AI takes wins, blocks threats, prefers winning over blocking\n- **`State immutability`** (line 307) — Proves moves don't mutate original state\n- **`AI never loses`** (line 356) — **Exhaustive game-tree traversal** that plays every possible human move sequence and asserts the AI never loses (~194ms)\n\nThe helper `boardFrom('XO_X__O__')` on line 19 lets you set up board positions as readable 9-character strings — much cleaner than array literals.\n\nRun the tests:\n```bash\nnode --test game.test.js\n```"
+    },
+    {
+      "title": "🎉 You Made It! — Next Steps",
+      "description": "## Summary\n\nYou've seen the full stack of this project:\n\n| Layer | File | Role |\n|-------|------|------|\n| **Structure** | `index.html` | Semantic HTML, accessible `<button>` grid |\n| **Style** | `style.css` | Neo-brutalist design via CSS custom properties |\n| **Engine** | `game.js` | Pure functions, immutable state, minimax AI |\n| **UI** | `app.js` | DOM glue, event handling, animations |\n| **Tests** | `game.test.js` | 46 tests including exhaustive AI proof |\n\n## Try It Out\n\n**Play the game:**\n```bash\nnpx serve .\n```\nThen open `http://localhost:3000` in your browser.\n\n**Run the tests:**\n```bash\nnode --test game.test.js\n```\n\n## Key Takeaways\n- Game logic is **pure and side-effect free** — easy to test and reason about\n- The AI is **mathematically unbeatable** via minimax\n- CSS custom properties enable **runtime theming** (background color cycling)\n- Zero dependencies — the whole app is ~500 lines of vanilla code\n\nHappy hacking! 🕹️"
+    }
+  ]
+}
