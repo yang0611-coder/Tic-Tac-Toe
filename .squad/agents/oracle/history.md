@@ -34,3 +34,15 @@
 - Architecture graph uses subgraphs to cluster Presentation, UI Controller, Game Engine, and Test Suite
 - Documented all 46 tests with group-level breakdown and counts
 - Key structural insight: `getComputerMove` is exposed separately from `makeComputerMove` specifically to give the UI animation flexibility (350ms delay)
+
+## 2026-04-09 Scribe Post-Session
+
+**Merged to decisions.md:** Oracle's architecture decision added to active decisions log.
+**Orchestration log:** Created in `.squad/orchestration-log/2026-04-09T201651Z-oracle.md` (Windows-safe filename).
+**Session log:** Work recorded in `.squad/log/2026-04-09T2015-architecture-and-codetour.md`.
+**Inbox cleared:** Decision file removed after merge to main decisions file.
+
+**Team updates:**
+- Mouse created `.tours/how-it-works.tour` (13-step interactive CodeTour)
+- Trinity (via inbox): Documented board grid row fix and color palette decision
+- Coordinator: Committed all work in commit 33e26b4

@@ -34,6 +34,28 @@
 - Board: CSS Grid, `<button>` elements, aspect-ratio locked square
 - Animations: Pop-in marks, pulse wins, bump score, shadow-press buttons
 
+### 2026-04-09 (Oracle): ARCHITECTURE.md added at repo root
+**Status:** Implemented
+- Created `ARCHITECTURE.md` at the repository root containing project overview and three Mermaid diagrams
+- Diagrams: component architecture (graph TD), game turn flow (sequence), minimax AI flow (graph TD)
+- Includes component descriptions for all five source files and tech stack documentation
+- Serves as onboarding material and living system map
+- All diagrams follow dark theme standard
+
+### 2025-07-15 (Trinity): Fix Board Grid Row Collapse
+**Status:** Implemented
+- Added `grid-template-rows: repeat(3, 1fr)` to `.board` — forces all three rows to equal height
+- Added `aspect-ratio: 1` to `.cell` — ensures each cell stays square
+- Problem: Empty rows were collapsing due to CSS Grid auto-sizing based on content
+- Solution: Explicit row template is the correct CSS Grid approach
+
+### 2025-07-15 (Trinity): Replaced Yellow with Hot Pink Neo-Brutalist Palette
+**Status:** Implemented
+- `--color-bg`: `#FFE600` (yellow) → `#FF2ECC` (hot pink/magenta)
+- `--color-accent`: `#FF2D55` (red-pink) → `#00E5FF` (electric cyan)
+- X marks stay blue `#1A1AFF`, O marks stay red-pink `#FF2D55`, win highlight stays green `#00FF88`
+- Hot pink/magenta is the defining neo-brutalist color — bold, high-energy, maintains raw aesthetic
+
 ## Governance
 
 - All meaningful changes require team consensus

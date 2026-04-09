@@ -27,3 +27,15 @@
 - Emphasized "why" over "what": immutable state rationale, flat array choice, setTimeout UX delay, animation reflow trick
 - Line numbers verified against actual source files
 - Tour follows execution flow rather than alphabetical file order — mirrors how a developer would trace the code
+
+## 2026-04-09 Scribe Post-Session
+
+**Merged to decisions.md:** Mouse's CodeTour decision plus Trinity's board and palette decisions added to active decisions log.
+**Orchestration log:** Created in `.squad/orchestration-log/2026-04-09T201651Z-mouse.md` (Windows-safe filename).
+**Session log:** Work recorded in `.squad/log/2026-04-09T2015-architecture-and-codetour.md`.
+**Inbox cleared:** Decision files removed after merge to main decisions file.
+
+**Team updates:**
+- Oracle created `ARCHITECTURE.md` with 3 Mermaid diagrams (component, sequence, minimax flow)
+- Trinity (via inbox): Documented board grid row collapse fix and neo-brutalist palette change (#FF2ECC pink → #00E5FF cyan)
+- Coordinator: Committed all work in commit 33e26b4
