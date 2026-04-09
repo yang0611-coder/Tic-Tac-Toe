@@ -23,3 +23,5 @@
 
 **Decisions archive:** UI Design System decision recorded in `.squad/decisions.md` for team styling reference.
 **Orchestration log:** Work completed and logged in `.squad/orchestration-log/2026-04-09T19-16-47Z-trinity.md` — Frontend DONE, all animations and interactions complete.
+
+- **README.md:** Created project README with Ted Neward dedication, gameplay GIF placeholder, about/how-to-play/tech-stack/tests/credits sections. Kept it direct and neo-brutalist in tone — concise, warm where it matters, zero fluff.

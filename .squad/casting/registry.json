@@ -47,6 +47,14 @@
       "created_at": "2026-04-09T20:10:02Z",
       "legacy_named": false,
       "status": "active"
+    },
+    "switch": {
+      "persistent_name": "Switch",
+      "universe": "The Matrix",
+      "role": "Playwright Tester",
+      "created_at": "2026-04-09T20:39:51Z",
+      "legacy_named": false,
+      "status": "active"
     }
   }
 }

@@ -11,6 +11,7 @@ How to decide who handles what.
 | Game logic & AI | Morpheus | Minimax, win detection, state management, game flow |
 | Code review | Neo | Review PRs, check quality, suggest improvements |
 | Testing | Tank | Write tests, find edge cases, verify game logic |
+| E2E / Playwright | Switch | Browser automation, screenshots, visual testing, GIF generation |
 | Scope & priorities | Neo | What to build next, trade-offs, decisions |
 | Diagrams & visualization | Oracle | Architecture diagrams, flow charts, state diagrams, Mermaid |
 | CodeTour & education | Mouse | Interactive code tours, onboarding walkthroughs, learning paths |

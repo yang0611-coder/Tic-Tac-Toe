@@ -1,4 +1,4 @@
-# Architecture — TIC TAC TOE: BRUTAL EDITION
+# Architecture — TED TAC TOE: BRUTAL EDITION
 
 ## Overview
 

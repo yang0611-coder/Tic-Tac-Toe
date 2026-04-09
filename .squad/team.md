@@ -1,6 +1,6 @@
 # Squad Team
 
-> TicTacToe — Human vs. computer tic-tac-toe with neo-brutalist design
+> TedTacToe — Human vs. computer tic-tac-toe with neo-brutalist design
 
 ## Coordinator
 
@@ -18,12 +18,13 @@
 | Tank | Tester | `.squad/agents/tank/charter.md` | 🧪 Active |
 | Oracle | Diagram Author | `.squad/agents/oracle/charter.md` | 📊 Active |
 | Mouse | CodeTour Author | `.squad/agents/mouse/charter.md` | 📝 Active |
+| Switch | Playwright Tester | `.squad/agents/switch/charter.md` | 🎭 Active |
 | Scribe | Scribe | `.squad/agents/scribe/charter.md` | 📋 Active |
 | Ralph | Work Monitor | `.squad/agents/ralph/charter.md` | 🔄 Active |
 
 ## Project Context
 
 - **Owner:** Brady
-- **Project:** TicTacToe — human vs. computer tic-tac-toe with neo-brutalist design
+- **Project:** TedTacToe — human vs. computer tic-tac-toe with neo-brutalist design
 - **Stack:** Vanilla HTML, CSS, JavaScript
 - **Created:** 2026-04-09
