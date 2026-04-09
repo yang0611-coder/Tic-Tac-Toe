@@ -13,9 +13,21 @@ const scoreWinsEl = document.getElementById('score-wins');
 const scoreDrawsEl = document.getElementById('score-draws');
 const scoreLossesEl = document.getElementById('score-losses');
 
+const BG_COLORS = [
+  '#FF2ECC', '#00E5FF', '#B8FF00', '#FF6F61',
+  '#7B68EE', '#FF4500', '#00FF88', '#FF1493',
+  '#FFD700', '#00CED1', '#FF6347', '#9370DB',
+];
+let bgIndex = 0;
+
 const score = { wins: 0, losses: 0, draws: 0 };
 let gameState = null;
 let inputLocked = false;
+
+function cycleBgColor() {
+  bgIndex = (bgIndex + 1) % BG_COLORS.length;
+  document.documentElement.style.setProperty('--color-bg', BG_COLORS[bgIndex]);
+}
 
 function init() {
   gameState = createGame();
@@ -161,7 +173,7 @@ function enableCells() {
 
 // Event listeners
 cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-resetBtn.addEventListener('click', init);
+resetBtn.addEventListener('click', () => { cycleBgColor(); init(); });
 
 // Start
 init();
